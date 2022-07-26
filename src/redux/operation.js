@@ -11,7 +11,7 @@ import {
   fetchContactsError,
 } from "./actions";
 
-axios.defaults.baseURL = `http://localhost:3000`;
+axios.defaults.baseURL = `https://62dfdf2598dd9c9df608c50a.mockapi.io/api/contacts-go-it-hw-7`;
 
 export const fetchContacts = () => (dispatch) => {
   dispatch(fetchContactsRequest());
@@ -21,9 +21,15 @@ export const fetchContacts = () => (dispatch) => {
     .catch((error) => dispatch(fetchContactsError(error)));
 };
 
-export const addContact = (name, number) => (dispatch) => {
-  const contact = { name, number };
-
+export const addContact = (name, number, id) => (dispatch) => {
+  const contact = { name, number, id };
+   axios.get(`/contacts`)
+  .then((response) => {
+    contact.id = response[response.length - 1].id + 1;;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   dispatch(addContactsRequest());
   axios
     .post(`/contacts`, contact)

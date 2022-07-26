@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = `http://localhost:3000`;
+axios.defaults.baseURL = `https://62dfdf2598dd9c9df608c50a.mockapi.io/api/contacts-go-it-hw-7`;
 
 export function fetchContacts() {
   return axios.get(`/contacts`);
