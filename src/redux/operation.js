@@ -23,13 +23,6 @@ export const fetchContacts = () => (dispatch) => {
 
 export const addContact = (name, number, id) => (dispatch) => {
   const contact = { name, number, id };
-   axios.get(`/contacts`)
-  .then((response) => {
-    contact.id = response[response.length - 1].id + 1;;
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
   dispatch(addContactsRequest());
   axios
     .post(`/contacts`, contact)

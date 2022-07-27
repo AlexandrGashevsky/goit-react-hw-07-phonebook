@@ -3,24 +3,25 @@ import contactFormSryles from "./ContactForm.module.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addContact } from "../../redux/operation";
-import { getIsAdded } from "../../redux/selectors";
+import { getIsAdded, getContacts } from "../../redux/selectors";
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const isAdded = useSelector(getIsAdded);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isAdded(name)) {
+    if (isAdded(name.toLowerCase())) {
       return alert(`${name} is already in contacts`);
     } else {
-      dispatch(addContact(name, number));
+      const id = contacts[contacts.length - 1].id +1;
+      dispatch(addContact(name, number, id));
+      setName("");
+      setNumber("");
     }
-
-    setName("");
-    setNumber("");
   };
 
   return (
